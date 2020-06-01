@@ -1,5 +1,6 @@
 import pandas as pd 
 from math import *
+
 def load_fuse(data_path):
     mylist = []
     fh = open(data_path,'r')
@@ -33,9 +34,10 @@ def converter(latitude, longitude, height):
 
 def convert_to_cartesian(df_probe):
     idx = 0
+    min_lat = inf
+    min_lon = inf
+    min_alt = inf
     for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
-        if idx%1000==0: 
-            print("idx: ",idx)
         lat = float(lat)
         lon = float(lon)
         alt = float(alt)
@@ -43,7 +45,18 @@ def convert_to_cartesian(df_probe):
         df_probe.at[idx,'latitude'] = x
         df_probe.at[idx,'longitude'] = y
         df_probe.at[idx,'altitude'] = z
+        min_lat = min(min_lat,x)
+        min_lon = min(min_lon,y)
+        min_alt = min(min_alt,z)
         idx+=1
+
+    idx = 0
+    for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
+        df_probe.at[idx,'latitude'] = lat-min_lat
+        df_probe.at[idx,'longitude'] = lon-min_lon
+        df_probe.at[idx,'altitude'] = alt - min_alt
+        idx+=1
+        # break
     return df_probe
 
 if __name__ == "__main__":
@@ -51,4 +64,5 @@ if __name__ == "__main__":
     result = load_fuse(path)
     df_result = pd.DataFrame(result, columns = ['latitude','longitude','altitude','intensity']) 
     df_result = convert_to_cartesian(df_result)
+    df_result.to_csv("../final_project_data/points", sep=" ", header=False, index=False)
     print(df_result)
