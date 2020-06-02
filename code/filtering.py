@@ -36,7 +36,7 @@ def filter1(pts):
 
 
 def filter2(pts):
-    with open('../final_project_data/trajectory') as tra:
+    with open('final_project_data/trajectory') as tra:
         data = tra.readline()
         trajectory = []
         while data:
@@ -58,14 +58,14 @@ def filter2(pts):
 
 
 if __name__ == '__main__':
-    points = load_file('../final_project_data/points')
+    points = load_file('final_project_data/points')
 
     points = filter1(points)
     points = filter2(points)
 
     result = pd.DataFrame(points)
 
-    result.to_csv("../final_project_data/filtered_points", sep=" ", header=False, index=False)
+    result.to_csv("final_project_data/filtered_points.csv", sep=" ", header=['X','Y','Z','Intensity'], index=False)
 
 
 
