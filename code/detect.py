@@ -3,8 +3,8 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv('final_project_data/filtered_points.csv', delim_whitespace=True, usecols=['X','Y','Intensity'])
-df_t = pd.read_csv('final_project_data/trajectory', delim_whitespace=True, names=['X','Y','Z','Intensity'])
+df = pd.read_csv('../final_project_data/filtered_points.csv', delim_whitespace=True, usecols=['X','Y','Intensity'])
+df_t = pd.read_csv('../final_project_data/trajectory.xyz', delim_whitespace=True, names=['X','Y','Z','Intensity'])
 
 imin = df.min(axis=0)['Intensity']
 imax = df.max(axis=0)['Intensity']
