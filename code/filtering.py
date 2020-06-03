@@ -36,7 +36,7 @@ def filter1(pts):
 
 
 def filter2(pts):
-    with open('../final_project_data/trajectory') as tra:
+    with open('../final_project_data/trajectory.xyz') as tra:
         data = tra.readline()
         trajectory = []
         while data:
@@ -77,7 +77,7 @@ def filter3(pts):
 
 
 if __name__ == '__main__':
-    points = load_file('../final_project_data/points')
+    points = load_file('../final_project_data/cloudpoints.xyz')
 
     points = filter1(points)
     points = filter2(points)

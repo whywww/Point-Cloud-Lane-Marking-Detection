@@ -41,23 +41,33 @@ def convert_to_cartesian(df_probe):
     min_lat = inf
     min_lon = inf
     min_alt = inf
+    min_x = inf
+    min_y = inf
     for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
         lat = float(lat)
         lon = float(lon)
         new_coordinate = utm.from_latlon(lat, lon)
         x = new_coordinate[0]
         y = new_coordinate[1]
+        min_x = min(min_x,x)
+        min_y = min(min_y,y)
         df_probe.at[idx, 'latitude'] = x
         df_probe.at[idx, 'longitude'] = y
+        idx += 1  
+    
+    idx=0
+    for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
+        df_probe.at[idx, 'latitude'] = lat-min_x
+        df_probe.at[idx, 'longitude'] = lon-min_y
         idx += 1  
     return df_probe
 
 if __name__ == "__main__":
-    path = "../final_project_data/trajectory.fuse"
+    path = "../final_project_data/final_project_point_cloud.fuse"
     result = load_fuse(path)
     df_result = pd.DataFrame(result, columns=['latitude', 'longitude', 'altitude', 'intensity'])
     df_result = convert_to_cartesian(df_result)
-    df_result.to_csv("../final_project_data/trajectory.xyz", sep=" ", header=False, index=False)
+    df_result.to_csv("../final_project_data/cloudpoints.xyz", sep=" ", header=False, index=False)
     print(df_result)
 
  
