@@ -11,14 +11,17 @@ imax = df.max(axis=0)['Intensity']
 
 # print(df.max(axis=0))
 # print(imin, imax)
+xmax = int(df.max(axis=0)['X'])+1
+ymax = int(df.max(axis=0)['Y'])+1
 
-img = np.zeros((256,256))
-img_t = np.zeros((256,256))
+
+img = np.zeros((xmax,ymax))
+img_t = np.zeros((xmax,ymax))
 
 for i, row in df.iterrows():
-    img[int(row['X'])*2, int(row['Y'])*2] = float(row['Intensity'])/150
+    img[int(row['X']), int(row['Y'])] = float(row['Intensity'])/imax
 for i, row in df_t.iterrows():
-    img_t[int(row['X'])*2, int(row['Y'])*2] = float(row['Intensity'])
+    img_t[int(row['X']), int(row['Y'])] = float(row['Intensity'])
 
 
 # # edge detect
