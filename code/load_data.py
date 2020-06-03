@@ -1,3 +1,4 @@
+import utm
 import pandas as pd
 from math import *
 
@@ -43,30 +44,20 @@ def convert_to_cartesian(df_probe):
     for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
         lat = float(lat)
         lon = float(lon)
-        alt = float(alt)
-        x, y, z = converter(lat, lon, alt)
+        new_coordinate = utm.from_latlon(lat, lon)
+        x = new_coordinate[0]
+        y = new_coordinate[1]
         df_probe.at[idx, 'latitude'] = x
         df_probe.at[idx, 'longitude'] = y
-        df_probe.at[idx, 'altitude'] = z
-        min_lat = min(min_lat, x)
-        min_lon = min(min_lon, y)
-        min_alt = min(min_alt, z)
-        idx += 1
-
-    idx = 0
-    for lat, lon, alt in zip(df_probe['latitude'], df_probe['longitude'], df_probe['altitude']):
-        df_probe.at[idx, 'latitude'] = lat - min_lat
-        df_probe.at[idx, 'longitude'] = lon - min_lon
-        df_probe.at[idx, 'altitude'] = alt - min_alt
-        idx += 1
-        # break
+        idx += 1  
     return df_probe
 
-
 if __name__ == "__main__":
-    path = "../final_project_data/final_project_point_cloud.fuse"
+    path = "../final_project_data/trajectory.fuse"
     result = load_fuse(path)
     df_result = pd.DataFrame(result, columns=['latitude', 'longitude', 'altitude', 'intensity'])
     df_result = convert_to_cartesian(df_result)
-    df_result.to_csv("../final_project_data/points", sep=" ", header=False, index=False)
+    df_result.to_csv("../final_project_data/trajectory.xyz", sep=" ", header=False, index=False)
     print(df_result)
+
+ 
