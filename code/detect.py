@@ -21,9 +21,10 @@ for i, row in df_t.iterrows():
     img_t[int(row['X'])*2, int(row['Y'])*2] = float(row['Intensity'])
 
 
-# edge detect
-# img = (img*255).astype(np.uint8)
-# edges = cv2.Canny(img,100,200)
+# # edge detect
+# img = (img * 255).astype(np.uint8)
+# edges = cv2.Canny(img, 100, 200)
+
 # edges = cv2.Canny(img,50,200,apertureSize = 3)
 
 # Hough Transform
