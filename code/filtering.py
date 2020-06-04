@@ -80,7 +80,7 @@ if __name__ == '__main__':
     points = load_file('final_project_data/cloudpoints.xyz')
 
     points = filter1(points)
-    # points = filter2(points)
+    points = filter2(points)
     points = filter3(points)
 
     result = pd.DataFrame(points)
