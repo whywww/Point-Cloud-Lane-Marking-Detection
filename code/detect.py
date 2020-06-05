@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.cluster import DBSCAN
 
 
-img = cv2.imread('points.jpg', 0)
+img = cv2.imread('points1.jpg', 0)
 img_size = img.shape[0]
 
 # edge detect
@@ -17,14 +17,13 @@ plt.axis((0,img_size,img_size,0))
 plt.gca().set_aspect('equal', adjustable='box')
 
 # Hough Transform
-threshold = 50
-minLineLength = 50
-maxLineGap = 5
-width = 2  # width of line marking
+threshold = 200
+minLineLength = 200
+maxLineGap = 50
+width = 10  # width of line marking
 avg_k = 0
-set_b = []
 try:
-    lines = cv2.HoughLinesP(edges,1,np.pi/180,threshold,minLineLength,maxLineGap)
+    lines = cv2.HoughLinesP(img,1,np.pi/180,threshold,minLineLength,maxLineGap)
     for i in range(0, len(lines)):
         # for rho,theta in lines[i]:
         #     a = np.cos(theta)
@@ -40,14 +39,14 @@ try:
             b = y1 - k*x1
             avg_k += k 
             plt.plot((x1,x2),(y1,y2))
-            # print(b)
+            # cv2.line(line_image,(x1,y1),(x2,y2),(255,0,0),5)
 
 except:
     print('No lines detected')
     pass
 
-avg_k /= len(lines)
-print(avg_k)
+# avg_k /= len(lines)
+# print(avg_k)
 
 # Clustering
 # db = DBSCAN(eps=0.3, min_samples=10).fit(img)
