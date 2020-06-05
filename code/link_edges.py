@@ -15,6 +15,4 @@ image = cv2.dilate(image, kernel=np.ones((4, 4)))
 image = np.where(image < threshold_low, 0, image)
 image = np.where(image > threshold_low, 255, image)
 
-print(image.shape)
-plt.imshow(image, cmap='gray')
-plt.show()
+cv2.imwrite('result.png', image)
