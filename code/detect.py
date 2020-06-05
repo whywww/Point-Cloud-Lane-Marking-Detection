@@ -13,7 +13,7 @@ img = cv2.medianBlur(img, 3)
 edges = cv2.Canny(img, 10, 20)
 
 plt.subplot(133)
-plt.axis((0,img_size,img_size,0))
+plt.axis((0, img_size, img_size, 0))
 plt.gca().set_aspect('equal', adjustable='box')
 
 # Hough Transform
@@ -23,7 +23,7 @@ maxLineGap = 50
 width = 10  # width of line marking
 avg_k = 0
 try:
-    lines = cv2.HoughLinesP(img,1,np.pi/180,threshold,minLineLength,maxLineGap)
+    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold, minLineLength, maxLineGap)
     for i in range(0, len(lines)):
         # for rho,theta in lines[i]:
         #     a = np.cos(theta)
@@ -53,6 +53,6 @@ except:
 # labels = db.labels_
 # print(np.reshape(labels, [img_size, img_size]))
 
-plt.subplot(131),plt.imshow(img,cmap = 'gray')
-plt.subplot(132),plt.imshow(edges,cmap = 'gray')
+plt.subplot(131), plt.imshow(img, cmap='gray')
+plt.subplot(132), plt.imshow(edges, cmap='gray')
 plt.show()
