@@ -23,7 +23,7 @@ def filter1(pts):
     mean = np.mean(intensity)
     std = np.std(intensity)
 
-    threshold = mean + std  # adjust this value to see different results
+    threshold = mean + std - 10  # adjust this value to see different results
     print(f'threshold is {threshold}')
 
     filtered_points = []
@@ -36,7 +36,7 @@ def filter1(pts):
 
 
 def filter2(pts):
-    with open('../final_project_data/trajectory.xyz') as tra:
+    with open('results/trajectory.xyz') as tra:
         data = tra.readline()
         trajectory = []
         while data:
@@ -77,13 +77,13 @@ def filter3(pts):
 
 
 if __name__ == '__main__':
-    points = load_file('../final_project_data/cloudpoints.xyz')
+    points = load_file('results/cloudpoints.xyz')
 
     points = filter1(points)
     points = filter2(points)
-    points = filter3(points)
+    # points = filter3(points)
 
     result = pd.DataFrame(points)
 
-    result.to_csv("../final_project_data/filtered_points.csv", sep=" ", header=['X', 'Y', 'Z', 'Intensity'],
+    result.to_csv("results/more_filtered_points.csv", sep=" ", header=['X', 'Y', 'Z', 'Intensity'],
                   index=False)

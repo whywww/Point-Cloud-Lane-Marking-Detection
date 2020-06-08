@@ -72,14 +72,14 @@ if __name__ == "__main__":
     # result = load_fuse(path)
     # df_result = pd.DataFrame(result, columns=['latitude', 'longitude', 'altitude', 'intensity'])
     # df_result = convert_to_cartesian(df_result)
-    # df_result.to_csv("../final_project_data/cloudpoints.xyz", sep=" ", header=False, index=False)
+    # df_result.to_csv("../results/cloudpoints.xyz", sep=" ", header=False, index=False)
     # print(df_result)
 
     path = "../final_project_data/trajectory.fuse"
     result = load_fuse(path)
     df_result = pd.DataFrame(result, columns=['latitude', 'longitude', 'altitude', 'intensity'])
     df_result = convert_to_cartesian(df_result)
-    df_result.to_csv("../final_project_data/trajectory.xyz", sep=" ", header=False, index=False)
+    df_result.to_csv("../results/trajectory.xyz", sep=" ", header=False, index=False)
     print(df_result)
 
  
